@@ -35,7 +35,7 @@ The back-end uses :
 
 Moreover, the software project management used is Maven.
 
-You can find all the links to the technologies used in the [Guides and resources section](#guides-and-resources)
+You can find all the links to the technologies used in the [Guides and resources](#guides-and-resources) section
 
 ## <a name="guides-and-resources"></a>Guides and resources
 * [Spring](https://spring.io/) - Development framework
