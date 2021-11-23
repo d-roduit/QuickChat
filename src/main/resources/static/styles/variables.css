@@ -1,0 +1,11 @@
+:root {
+    --color-background-body: #0d1117;
+    --color-background-nav: #161b22;
+    --colors-gradient: #D9AFD9, #97D9E1;
+    --color-background-btn-default: #21262d;
+    --color-background-btn-hover: #30363d;
+    --color-border-btn-default: rgba(240, 246, 252, 0.1);
+    --color-border-btn-hover: #8b949e;
+    --color-border-default: #30363d;
+    --color-background-chat-card-default: #161b22;
+}

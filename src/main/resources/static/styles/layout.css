@@ -1,0 +1,19 @@
+body {
+    background-color: var(--color-background-body);
+}
+
+nav {
+    background-color: var(--color-background-nav);
+    border-image-slice: 1;
+    border-bottom: 2px solid;
+    border-image-source: linear-gradient(45deg, var(--colors-gradient));
+}
+
+#site-name {
+    font-size: 25px;
+    font-weight: bold;
+    background: -webkit-linear-gradient(45deg, var(--colors-gradient));
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
