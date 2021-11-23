@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head(title = ~{::title}, styles = ~{::link})">
+    <title>QuickChat</title>
+
+    <link rel="stylesheet" th:href="@{/styles/index.css}">
+</head>
+<body th:replace="layout :: body(content = ~{::main}, scripts = ~{::script})">
+    <main class="container mb-5">
+        <button type="button" class="btn btn-success my-5" data-bs-toggle="modal" data-bs-target="#newChatModal">
+            <i class="fas fa-plus" style="font-size: 13px; margin-right: 5px;"></i> New chat
+        </button>
+
+        <div class="modal fade" id="newChatModal">
+            <div class="modal-dialog">
+                <div class="modal-content text-light">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Create a chat</h5>
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close" class="text-light bg-transparent border-0 px-2 fs-5">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="create-chat-form" class="mb-2" action="#" method="POST">
+                            <label for="chat-name" class="form-label font-weight-lighter">Chat name</label>
+                            <input type="text" maxlength="60" class="form-control bg-transparent text-light" id="chat-name">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" form="create-chat-form" class="btn btn-success">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="chat-card-container" class="d-flex justify-content-between flex-wrap">
+            <div class="chat-card card text-light text-center mb-4">
+                <div class="card-header p-3 h-100">
+                    <h6 class="card-title mb-3">
+                        Lorem Ipsum is simply dummy text of the printing and typeset
+                    </h6>
+                    <p class="user-status mb-0">
+                        <span class="circle-status active"></span> 13 active users
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-outline-secondary btn-subtile d-block">Join</a>
+                </div>
+            </div>
+            <div class="chat-card card text-light text-center mb-4">
+                <div class="card-header p-3 h-100">
+                    <h6 class="card-title mb-3">
+                        s, but also the leap into electronic typesetting, remaining
+                    </h6>
+                    <p class="user-status mb-0">
+                        <span class="circle-status active"></span> 6 active users
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-outline-secondary btn-subtile d-block">Join</a>
+                </div>
+            </div>
+            <div class="chat-card card text-light text-center mb-4">
+                <div class="card-header p-3 h-100">
+                    <h6 class="card-title mb-3">
+                        We need to talk...
+                    </h6>
+                    <p class="user-status mb-0">
+                        <span class="circle-status active"></span> 4 active users
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-outline-secondary btn-subtile d-block">Join</a>
+                </div>
+            </div>
+            <div class="chat-card card text-light text-center mb-4">
+                <div class="card-header p-3 h-100">
+                    <h6 class="card-title mb-3">
+                        ere are many variations of passages of Lorem Ipsum available
+                    </h6>
+                    <p class="user-status mb-0">
+                        <span class="circle-status active"></span> 1 active users
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-outline-secondary btn-subtile d-block">Join</a>
+                </div>
+            </div>
+            <div class="chat-card card text-light text-center mb-4">
+                <div class="card-header p-3 h-100">
+                    <h6 class="card-title mb-3">
+                        We need to talk...
+                    </h6>
+                    <p class="user-status mb-0">
+                        <span class="circle-status inactive"></span> 0 active users
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-outline-secondary btn-subtile d-block">Join</a>
+                </div>
+            </div>
+            <div class="chat-card card text-light text-center mb-4">
+                <div class="card-header p-3 h-100">
+                    <h6 class="card-title mb-3">
+                        We need to talk...
+                    </h6>
+                    <p class="user-status mb-0">
+                        <span class="circle-status inactive"></span> 0 active users
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-outline-secondary btn-subtile d-block">Join</a>
+                </div>
+            </div>
+            <div class="chat-card card text-light text-center mb-4">
+                <div class="card-header p-3 h-100">
+                    <h6 class="card-title mb-3">
+                        We need to talk...
+                    </h6>
+                    <p class="user-status mb-0">
+                        <span class="circle-status inactive"></span> 0 active users
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-outline-secondary btn-subtile d-block">Join</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script th:src="@{/js/index.js}"></script>
+</body>
+</html>

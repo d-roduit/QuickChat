@@ -1,0 +1,29 @@
+#newChatModal .modal-content {
+    background-color: var(--color-background-chat-card-default);
+}
+
+#newChatModal .modal-header,
+#newChatModal .modal-footer {
+    border-bottom: 1px solid var(--color-border-default);
+}
+
+#newChatModal #chat-name {
+    border: 1px solid var(--color-border-default);
+}
+
+.chat-card {
+    width: 30%;
+    background-color: var(--color-background-chat-card-default);
+    border-radius: 6px;
+    border: 1px solid var(--color-border-default);
+}
+
+.chat-card .card-header {
+    /*border-bottom: 1px solid var(--color-border-default);*/
+}
+
+.chat-card .card-footer {
+    border-image-slice: 1;
+    border-top: 1px solid;
+    border-image-source: linear-gradient(45deg, var(--colors-gradient));
+}
