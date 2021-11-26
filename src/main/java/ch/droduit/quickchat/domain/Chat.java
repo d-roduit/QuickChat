@@ -1,6 +1,9 @@
 package ch.droduit.quickchat.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -16,6 +19,7 @@ public class Chat {
     @Column(nullable = false)
     private String name;
 
+    @Generated(GenerationTime.INSERT)
     @Column(insertable = false, updatable = false, columnDefinition = "timestamp with time zone DEFAULT now()")
     private OffsetDateTime creationDateTime;
 
