@@ -4,6 +4,7 @@ import ch.droduit.quickchat.domain.Chat;
 import ch.droduit.quickchat.domain.ChatMessage;
 import ch.droduit.quickchat.domain.ChatMessageRepository;
 import ch.droduit.quickchat.domain.ChatRepository;
+import ch.droduit.quickchat.helper.CookieHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -53,7 +54,7 @@ public class ChatController {
         chatRepository.save(newChat);
 
         // Create a username cookie to link the username of the user to the chat he created
-        Cookie usernameCookie = createCookie(
+        Cookie usernameCookie = CookieHelper.createCookie(
                 newChat.getUUID(),
                 "OP",
                 "/chat/" + newChat.getUUID()
@@ -73,13 +74,13 @@ public class ChatController {
 
         // Check if the user has already a username cookie.
         // If so, use it. Create it otherwise.
-        String username = extractCookie(request, UUID);
+        String username = CookieHelper.extractCookie(request, UUID);
         if (username == null) {
             int newLastUsernameUsed = chat.getLastUsernameUsed() + 1;
             chat.setLastUsernameUsed(newLastUsernameUsed);
             chatRepository.save(chat);
 
-            Cookie usernameCookie = createCookie(
+            Cookie usernameCookie = CookieHelper.createCookie(
                     UUID,
                     String.valueOf(newLastUsernameUsed),
                     "/chat/" + UUID
@@ -90,23 +91,6 @@ public class ChatController {
         model.addAttribute("username", username);
 
         return "chat";
-    }
-
-    private String extractCookie(HttpServletRequest request, String cookieName) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null) return null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(cookieName))
-                return cookie.getValue();
-        }
-        return null;
-    }
-
-    private Cookie createCookie(String UUID, String value, String path) {
-        Cookie cookie = new Cookie(UUID, value);
-        cookie.setMaxAge(60 * 60 * 24 * 365);
-        cookie.setPath(path);
-        return cookie;
     }
 
 }

@@ -38,7 +38,7 @@
         <div id="bottom-row" class="row">
             <div id="message-input-box" class="col-10 p-3 d-flex">
                 <textarea id="message-textarea" class="form-control shadow-none text-light w-100" placeholder="Write a message"></textarea>
-                <button class="btn btn-outline-secondary btn-subtile shadow-none ms-3 align-self-end">Send</button>
+                <button id="send-message-button" class="btn btn-outline-secondary btn-subtile shadow-none ms-3 align-self-end">Send</button>
             </div>
             <div id="username-box" class="col-2 d-flex justify-content-center align-items-center px-0">
                 <p class="mb-0 text-center text-grey">
@@ -48,6 +48,10 @@
         </div>
     </main>
 
+    <script th:inline="javascript">
+        const UUID = /*[[${chat.getUUID()}]]*/ "";
+        const username = /*[[${username}]]*/ "";
+    </script>
     <script th:src="@{/js/chat.js}"></script>
 </body>
 </html>
