@@ -1,11 +1,13 @@
+/* Variables */
 let stompClient = null;
-let connectButton = null;
-let disconnectButton = null;
-let sendButton = null;
-let conversation = null;
-let greetings = null;
-let nameInput = null;
+let connectButton = connectButton = document.getElementById("connect");
+let disconnectButton = disconnectButton = document.getElementById("disconnect");
+let sendButton = sendButton = document.getElementById("send");
+let conversation = conversation = document.getElementById("conversation");
+let greetings = greetings = document.getElementById("greetings");
+let nameInput = nameInput = document.getElementById("name");
 
+/* Functions */
 const setConnected = (connected) => {
     connectButton.disabled = connected;
     disconnectButton.disabled = !connected;
@@ -55,18 +57,10 @@ const showGreeting = (message) => {
     greetings.appendChild(tr);
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-    connectButton = document.getElementById("connect");
-    disconnectButton = document.getElementById("disconnect");
-    sendButton = document.getElementById("send");
-    conversation = document.getElementById("conversation");
-    greetings = document.getElementById("greetings");
-    nameInput = document.getElementById("name");
-
-    for (let form of document.forms) {
-        form.addEventListener('submit', (e) => e.preventDefault());
-    }
-    connectButton.addEventListener('click', connect);
-    disconnectButton.addEventListener('click', disconnect);
-    sendButton.addEventListener('click', sendName);
-}, false);
+/* Code Execution */
+for (let form of document.forms) {
+    form.addEventListener('submit', (e) => e.preventDefault());
+}
+connectButton.addEventListener('click', connect);
+disconnectButton.addEventListener('click', disconnect);
+sendButton.addEventListener('click', sendName);
