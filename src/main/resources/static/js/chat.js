@@ -3,6 +3,8 @@ const copyChatURLButton = document.getElementById("copy-chat-url-btn")
 const messageTextarea = document.getElementById("message-textarea");
 const sendMessageButton = document.getElementById("send-message-button");
 const chatBox = document.getElementById("chat-box");
+const chatMessageSentTemplate = document.getElementById("chat-message-sent-template");
+const chatMessageReceivedTemplate = document.getElementById("chat-message-received-template");
 
 let isCopyChatURLButtonClickable = true;
 let stompClient = null;
@@ -34,17 +36,32 @@ const resizeTextAreaToFitContent = () => {
     messageTextarea.style.height = messageTextarea.scrollHeight + 'px';
 }
 
-const addMessageToChatBox = (chatMessage) => {
+const addMessageToChatBox = (chatMessageObj) => {
+    console.log(`chatMessageObj: ${chatMessageObj.message}`);
 
+    const chatMessageTemplate = (chatMessageObj.username === username) ? chatMessageSentTemplate : chatMessageReceivedTemplate;
+    const chatMessageClone = chatMessageTemplate.content.cloneNode(true);
+
+    const localDate = new Date(chatMessageObj.sendingDateTime);
+    const hours = (localDate.getHours() < 10) ? `0${localDate.getHours()}` : localDate.getHours();
+    const minutes = (localDate.getMinutes() < 10) ? `0${localDate.getMinutes()}` : localDate.getMinutes();
+    chatMessageClone.querySelector(".chat-message").textContent = chatMessageObj.message;
+    chatMessageClone.querySelector(".chat-message-time").textContent = `${hours}:${minutes}`;
+
+    if (chatMessageObj.username !== username) {
+        const chatMessageUsernameElement = chatMessageClone.querySelector(".chat-message-username")
+        chatMessageUsernameElement.textContent = chatMessageObj.username;
+        chatMessageUsernameElement.classList.add((chatMessageObj.username === "OP") ? "text-warning" : "text-info");
+    }
+
+    chatBox.appendChild(chatMessageClone);
 }
 
 const chatMessagesSubscriptionCallback = (chatMessageAsJSON) => {
-    console.log(`chatMessage: ${chatMessageAsJSON}`)
     addMessageToChatBox(JSON.parse(chatMessageAsJSON.body));
 }
 
 const websocketConnectionCallback = (frame) => {
-        console.log(`Connected: ${frame}`);
         if (stompClient != null) {
             stompClient.subscribe(
                 websocketEndpoints.chatMessagesSubscription,
@@ -63,12 +80,16 @@ const connectToWebsocket = () => {
 };
 
 const sendMessage = () => {
+    // Handle empty message
+    const message = messageTextarea.value.trim();
+    if (message === "") return;
+
     if (stompClient != null) {
         stompClient.send(
             websocketEndpoints.chatMessagesSending,
             JSON.stringify({
                 username: username,
-                message: messageTextarea.value
+                message: message
             })
         );
     }

@@ -24,7 +24,9 @@
         </div>
 
         <div id="middle-row" class="row d-flex flex-fill overflow-hidden">
-            <div id="chat-box" class="col-10 py-3 px-5 text-light d-flex flex-column flex-nowrap h-100 overflow-auto"></div>
+            <div id="chat-box-wrapper" class="d-flex flex-column-reverse col-10 h-100 py-3 px-5 overflow-auto">
+                <div id="chat-box" class="text-light d-flex flex-column flex-nowrap"></div>
+            </div>
             <div id="users-box" class="col-2 text-grey h-100 overflow-auto">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item bg-transparent text-info text-center">1</li>
@@ -46,6 +48,23 @@
                 </p>
             </div>
         </div>
+
+        <!-- Template for your own messages -->
+        <template id="chat-message-sent-template">
+            <div class="chat-message-box px-3 py-2 mb-2 rounded-3 align-self-end d-flex justify-content-between">
+                <p class="chat-message mb-0 me-3"></p>
+                <span class="chat-message-time d-flex align-items-end text-muted"></span>
+            </div>
+        </template>
+
+        <!-- Template for other people's messages -->
+        <template id="chat-message-received-template">
+            <div class="chat-message-box px-3 py-2 mb-2 rounded-3 align-self-start d-flex justify-content-between">
+                <span class="chat-message-username"></span>
+                <p class="chat-message mb-0 mx-3"></p>
+                <span class="chat-message-time d-flex align-items-end text-muted"></span>
+            </div>
+        </template>
     </main>
 
     <script th:inline="javascript">
