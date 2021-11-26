@@ -9,17 +9,20 @@
 
 #newChatModal #chat-name {
     border: 1px solid var(--color-border-default);
+    background-color: var(--color-background-input);
+}
+
+#chat-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    grid-gap: 1rem;
+    justify-content: space-between;
 }
 
 .chat-card {
-    width: 30%;
     background-color: var(--color-background-chat-card-default);
     border-radius: 6px;
     border: 1px solid var(--color-border-default);
-}
-
-.chat-card .card-header {
-    /*border-bottom: 1px solid var(--color-border-default);*/
 }
 
 .chat-card .card-footer {

@@ -4,8 +4,12 @@
     --colors-gradient: #D9AFD9, #97D9E1;
     --color-background-btn-default: #21262d;
     --color-background-btn-hover: #30363d;
+    --color-background-chat: #010409;
+    --color-background-input: #010409;
     --color-border-btn-default: rgba(240, 246, 252, 0.1);
     --color-border-btn-hover: #8b949e;
     --color-border-default: #30363d;
     --color-background-chat-card-default: #161b22;
+    --color-text-grey : #c9d1d9;
+    --color-background-chat-message-input: #21262d;
 }
