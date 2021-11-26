@@ -62,9 +62,7 @@ const connectToWebsocket = () => {
     );
 };
 
-const sendMessage = (event) => {
-    event.preventDefault();
-
+const sendMessage = () => {
     if (stompClient != null) {
         stompClient.send(
             websocketEndpoints.chatMessagesSending,
@@ -76,8 +74,28 @@ const sendMessage = (event) => {
     }
 }
 
+const eraseTextArea = () => {
+    messageTextarea.value = '';
+    resizeTextAreaToFitContent();
+}
+
+const sendMessageOnClick = (event) => {
+    event.preventDefault();
+    sendMessage();
+    eraseTextArea();
+}
+
+const sendMessageOnEnter = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+        eraseTextArea();
+    }
+}
+
 /* Code execution */
 connectToWebsocket();
 copyChatURLButton.addEventListener("click", copyChatURLToClipboard);
 messageTextarea.addEventListener("input", resizeTextAreaToFitContent)
-sendMessageButton.addEventListener("click", sendMessage);
+messageTextarea.addEventListener("keydown", sendMessageOnEnter);
+sendMessageButton.addEventListener("click", sendMessageOnClick);
