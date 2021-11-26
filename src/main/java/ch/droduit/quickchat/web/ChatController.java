@@ -30,7 +30,7 @@ public class ChatController {
         model.addAttribute("newChat", new Chat());
         model.addAttribute(
                 "chats",
-                chatRepository.findAll(Sort.by("nbUsersConnected").descending().and(Sort.by("creationDateTime").descending())));
+                chatRepository.findAll(Sort.by("creationDateTime").descending()));
         return "index";
     }
 
@@ -50,7 +50,6 @@ public class ChatController {
         // Saves chat in DB
         String randomUUID = UUID.randomUUID().toString();
         newChat.setUUID(randomUUID);
-        newChat.setNbUsersConnected(1);
         chatRepository.save(newChat);
 
         // Create a username cookie to link the username of the user to the chat he created
@@ -76,9 +75,13 @@ public class ChatController {
         // If so, use it. Create it otherwise.
         String username = extractCookie(request, UUID);
         if (username == null) {
+            int newLastUsernameUsed = chat.getLastUsernameUsed() + 1;
+            chat.setLastUsernameUsed(newLastUsernameUsed);
+            chatRepository.save(chat);
+
             Cookie usernameCookie = createCookie(
                     UUID,
-                    String.valueOf(chat.getLastUsernameUsed() + 1),
+                    String.valueOf(newLastUsernameUsed),
                     "/chat/" + UUID
             );
             username = usernameCookie.getValue();

@@ -19,8 +19,8 @@ public class Chat {
     @Column(insertable = false, updatable = false, columnDefinition = "timestamp with time zone DEFAULT now()")
     private OffsetDateTime creationDateTime;
 
-    @Column(nullable = false)
-    private int nbUsersConnected;
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private int lastUsernameUsed;
 
     @Column(nullable = false)
     private String UUID;
@@ -31,10 +31,10 @@ public class Chat {
 
     public Chat() {}
 
-    public Chat(String name, OffsetDateTime creationDateTime, int nbUsersConnected, String UUID) {
+    public Chat(String name, OffsetDateTime creationDateTime, int lastUsernameUsed, String UUID) {
         this.name = name;
         this.creationDateTime = creationDateTime;
-        this.nbUsersConnected = nbUsersConnected;
+        this.lastUsernameUsed = lastUsernameUsed;
         this.UUID = UUID;
     }
 
@@ -62,12 +62,12 @@ public class Chat {
         this.creationDateTime = creationDateTime;
     }
 
-    public int getNbUsersConnected() {
-        return nbUsersConnected;
+    public int getLastUsernameUsed() {
+        return lastUsernameUsed;
     }
 
-    public void setNbUsersConnected(int nbUsersConnected) {
-        this.nbUsersConnected = nbUsersConnected;
+    public void setLastUsernameUsed(int lastUsernameUsed) {
+        this.lastUsernameUsed = lastUsernameUsed;
     }
 
     public String getUUID() {
@@ -92,7 +92,7 @@ public class Chat {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", creationDateTime=" + creationDateTime +
-                ", nbUsersConnected=" + nbUsersConnected +
+                ", lastUsernameUsed=" + lastUsernameUsed +
                 ", UUID='" + UUID + '\'' +
                 ", chatMessages=" + chatMessages +
                 '}';
