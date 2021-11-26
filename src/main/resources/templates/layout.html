@@ -22,19 +22,21 @@
     <th:block th:replace="${styles}"></th:block>
 </head>
 <body th:fragment="body(content, scripts)">
-    <nav class="navbar navbar-expand-lg d-flex justify-content-between px-5 border-gradient-purple border-gradient">
-        <div>
-            <a id="site-name" class="navbar-brand d-inline-block text-light" th:href="@{/}">QuickChat</a>
-        </div>
-        <div>
-        <!--
-        <p class="text-secondary mb-0 d-inline-block mx-3">Connected as : [[${#httpServletRequest.remoteUser}]]</p>
-        <form class="form-inline my-2 my-lg-0 d-inline-block" th:action="@{/logout}" method="POST">
-            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Sign out</button>
-        </form>
-        -->
-        </div>
-    </nav>
+    <header>
+        <nav class="navbar navbar-expand-lg d-flex justify-content-between px-5 border-gradient-purple border-gradient">
+            <div>
+                <a id="site-name" class="navbar-brand d-inline-block text-light" th:href="@{/}">QuickChat</a>
+            </div>
+            <div>
+            <!--
+            <p class="text-secondary mb-0 d-inline-block mx-3">Connected as : [[${#httpServletRequest.remoteUser}]]</p>
+            <form class="form-inline my-2 my-lg-0 d-inline-block" th:action="@{/logout}" method="POST">
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Sign out</button>
+            </form>
+            -->
+            </div>
+        </nav>
+    </header>
 
     <main th:replace="${content}"></main>
 
