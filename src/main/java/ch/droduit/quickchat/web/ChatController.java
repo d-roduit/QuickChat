@@ -1,12 +1,17 @@
 package ch.droduit.quickchat.web;
 
+import ch.droduit.quickchat.ChatOperationAction;
 import ch.droduit.quickchat.domain.Chat;
 import ch.droduit.quickchat.domain.ChatMessage;
 import ch.droduit.quickchat.domain.ChatMessageRepository;
 import ch.droduit.quickchat.domain.ChatRepository;
+import ch.droduit.quickchat.dto.ChatOperationDto;
 import ch.droduit.quickchat.helper.CookieHelper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +31,15 @@ public class ChatController {
     @Autowired
     private ChatMessageRepository chatMessageRepository;
 
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+
     @GetMapping({"/", "index"})
     public String index(Model model) {
         model.addAttribute("newChat", new Chat());
         model.addAttribute(
                 "chats",
-                chatRepository.findAll(Sort.by("creationDateTime").descending()));
+                chatRepository.findAll(Sort.by("creationDateTime").ascending()));
         return "index";
     }
 
@@ -43,12 +51,12 @@ public class ChatController {
         // Sanitize input
         newChat.setName(newChat.getName().trim());
 
-        // Enforces business logic
-        if (newChat.getName().length() > 60) {
+        // Enforce business logic
+        if (newChat.getName().length() > 60 || newChat.getName().isEmpty()) {
             return "redirect:/";
         }
 
-        // Saves chat in DB
+        // Save chat in DB
         String randomUUID = UUID.randomUUID().toString();
         newChat.setUUID(randomUUID);
         chatRepository.save(newChat);
@@ -60,6 +68,9 @@ public class ChatController {
                 "/chat/" + newChat.getUUID()
         );
         response.addCookie(usernameCookie);
+
+        ChatOperationDto chatOperationDto = new ChatOperationDto(newChat, ChatOperationAction.CREATE);
+        simpMessagingTemplate.convertAndSend("/topic/chats", chatOperationDto);
 
         return "redirect:chat/" + newChat.getUUID();
     }

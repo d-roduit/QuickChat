@@ -10,7 +10,7 @@
         <div id="top-row" class="row">
             <div class="col-10 px-5 py-2">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5 th:text="${chat.getName()}" class="text-grey mb-0"></h5>
+                    <h5 th:text="${chat.getName()}" id="chat-title" class="text-grey mb-0"></h5>
                     <button id="copy-chat-url-btn" class="btn btn-sm btn-outline-secondary btn-subtile shadow-none" th:title="${#request.getRequestURL()}">
                         Copy chat URL
                     </button>

@@ -37,28 +37,48 @@
             </div>
         </div>
 
-        <p th:if="${#lists.isEmpty(chats)}" class="text-grey">
+        <p id="no-chat-card-text" th:if="${#lists.isEmpty(chats)}" class="text-grey">
             Hmmm 🤔, looks like no one has created a chat yet...
             <br><br>
             Will you be the first? 😏
         </p>
 
-        <div th:if="!${#lists.isEmpty(chats)}" id="chat-card-container">
-            <div class="chat-card card text-light text-center mb-4" th:each="chat: ${chats}">
+        <div id="chat-cards-container">
+            <th:block th:if="!${#lists.isEmpty(chats)}">
+                <div class="chat-card card text-light text-center mb-4" th:each="chat: ${chats}">
+                    <div class="card-header p-3 h-100">
+                        <h6 class="card-title mb-3" th:text="${chat.getName()}"></h6>
+                        <p class="user-status mb-0">
+    <!--                        <span class="circle-status" th:classappend="${chat.getNbUsersConnected() > 0} ? active : inactive"></span>-->
+    <!--                        <span th:text="${chat.getNbUsersConnected()}" th:remove="tag"></span> online-->
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a th:href="@{/chat/{UUID}(UUID=${chat.getUUID()})}" class="card-chat-url btn btn-outline-secondary btn-subtile d-block">Join</a>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+
+        <template id="chat-card-template">
+            <div class="chat-card card text-light text-center mb-4">
                 <div class="card-header p-3 h-100">
-                    <h6 class="card-title mb-3" th:text="${chat.getName()}"></h6>
+                    <h6 class="card-title mb-3"></h6>
                     <p class="user-status mb-0">
 <!--                        <span class="circle-status" th:classappend="${chat.getNbUsersConnected() > 0} ? active : inactive"></span>-->
 <!--                        <span th:text="${chat.getNbUsersConnected()}" th:remove="tag"></span> online-->
                     </p>
                 </div>
                 <div class="card-footer">
-                    <a th:href="@{/chat/{UUID}(UUID=${chat.getUUID()})}" class="btn btn-outline-secondary btn-subtile d-block">Join</a>
+                    <a class="card-chat-url btn btn-outline-secondary btn-subtile d-block">Join</a>
                 </div>
             </div>
-        </div>
+        </template>
     </main>
 
+    <script th:inline="javascript">
+        const username = /*[[${username}]]*/ "";
+    </script>
     <script th:src="@{/js/index.js}"></script>
 </body>
 </html>

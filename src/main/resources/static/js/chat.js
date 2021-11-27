@@ -11,8 +11,8 @@ let stompClient = null;
 
 const websocketEndpoints = {
     registration: "/register-websocket",
-    chatMessagesSubscription: `/topic/chat/${UUID}`,
-    chatMessagesSending: `/app/chat/${UUID}`
+    chatSubscription: `/topic/chat/${UUID}`,
+    chatSending: `/app/chat/${UUID}`
 };
 
 /* Functions */
@@ -45,8 +45,6 @@ const convertDateTimeInLocalTime = (dateTime) => {
 }
 
 const addMessageToChatBox = (chatMessageObj) => {
-    console.log(`chatMessageObj: ${chatMessageObj.message}`);
-
     const chatMessageTemplate = (chatMessageObj.username === username) ? chatMessageSentTemplate : chatMessageReceivedTemplate;
     const chatMessageClone = chatMessageTemplate.content.cloneNode(true);
 
@@ -62,15 +60,15 @@ const addMessageToChatBox = (chatMessageObj) => {
     chatBox.appendChild(chatMessageClone);
 }
 
-const chatMessagesSubscriptionCallback = (chatMessageAsJSON) => {
+const chatSubscriptionCallback = (chatMessageAsJSON) => {
     addMessageToChatBox(JSON.parse(chatMessageAsJSON.body));
 }
 
 const websocketConnectionCallback = (frame) => {
         if (stompClient != null) {
             stompClient.subscribe(
-                websocketEndpoints.chatMessagesSubscription,
-                (chatMessageAsJSON) => chatMessagesSubscriptionCallback(chatMessageAsJSON)
+                websocketEndpoints.chatSubscription,
+                (chatMessageAsJSON) => chatSubscriptionCallback(chatMessageAsJSON)
             );
         }
 }
@@ -91,7 +89,7 @@ const sendMessage = () => {
 
     if (stompClient != null) {
         stompClient.send(
-            websocketEndpoints.chatMessagesSending,
+            websocketEndpoints.chatSending,
             JSON.stringify({
                 username: username,
                 message: message
