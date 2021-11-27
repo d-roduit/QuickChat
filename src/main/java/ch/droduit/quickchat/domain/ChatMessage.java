@@ -16,11 +16,11 @@ public class ChatMessage {
     @Column(nullable = false)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition="TEXT")
     private String message;
 
     @Generated(GenerationTime.INSERT)
-    @Column(insertable = false, updatable = false, columnDefinition = "timestamp with time zone DEFAULT now()")
+    @Column(nullable = false, insertable = false, updatable = false, columnDefinition = "timestamp with time zone DEFAULT now()")
     private OffsetDateTime sendingDateTime;
 
     @ManyToOne

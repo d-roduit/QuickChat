@@ -20,7 +20,7 @@ public class Chat {
     private String name;
 
     @Generated(GenerationTime.INSERT)
-    @Column(insertable = false, updatable = false, columnDefinition = "timestamp with time zone DEFAULT now()")
+    @Column(nullable = false, insertable = false, updatable = false, columnDefinition = "timestamp with time zone DEFAULT now()")
     private OffsetDateTime creationDateTime;
 
     @Column(nullable = false, columnDefinition = "integer default 0")
