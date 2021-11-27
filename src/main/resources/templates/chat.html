@@ -18,7 +18,7 @@
             </div>
             <div id="nb-active-users-box" class="col-2 d-flex justify-content-center align-items-center px-0">
                 <p class="mb-0 text-center text-grey">
-                    <span class="circle-status active"></span> 4 online users
+                    <span class="circle-status active"></span> <span th:text="${#lists.size(chatUsers)}" id="nb-active-users"></span>&nbsp;online users
                 </p>
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div id="middle-row" class="row d-flex flex-fill overflow-hidden">
             <div id="chat-box-wrapper" class="d-flex flex-column-reverse col-10 h-100 py-3 px-5 overflow-auto">
                 <div id="chat-box" class="text-light d-flex flex-column flex-nowrap">
-                    <th:block th:each="chatMessage : ${chatMessages}">
+                    <th:block th:each="chatMessage: ${chatMessages}">
                         <div th:if="${chatMessage.getUsername().equals(username)}" class="chat-message-box px-3 py-2 mb-2 rounded-3 align-self-end d-flex justify-content-between">
                             <p th:text="${chatMessage.getMessage()}" class="chat-message mb-0 me-3"></p>
                             <span th:text="${chatMessage.getSendingDateTime()}" class="chat-message-time d-flex align-items-end text-muted"></span>
@@ -40,11 +40,10 @@
                 </div>
             </div>
             <div id="users-box" class="col-2 text-grey h-100 overflow-auto">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item bg-transparent text-info text-center">1</li>
-                    <li class="list-group-item bg-transparent text-info text-center">3</li>
-                    <li class="list-group-item bg-transparent text-info text-center">4</li>
-                    <li class="list-group-item bg-transparent text-info text-center">8</li>
+                <ul id="users-list" class="list-group list-group-flush">
+                    <th:block th:each="chatUser: ${chatUsers}">
+                        <li th:text="${chatUser.getUsername()}" class="chat-user list-group-item bg-transparent text-center" th:classappend="${#strings.equals(chatUser.getUsername(), 'OP')} ? 'text-warning' : 'text-info'"></li>
+                    </th:block>
                 </ul>
             </div>
         </div>
@@ -76,6 +75,11 @@
                 <p class="chat-message mb-0 mx-3"></p>
                 <span class="chat-message-time d-flex align-items-end text-muted"></span>
             </div>
+        </template>
+
+        <!-- Template for a chat user -->
+        <template id="chat-user-template">
+            <li class="chat-user list-group-item bg-transparent text-info text-center"></li>
         </template>
     </main>
 

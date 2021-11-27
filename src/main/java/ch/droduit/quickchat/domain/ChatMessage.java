@@ -9,6 +9,7 @@ import java.time.OffsetDateTime;
 @Entity
 @Table(name = "ChatMessages")
 public class ChatMessage {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
@@ -86,4 +87,5 @@ public class ChatMessage {
                 ", chat=" + chat +
                 '}';
     }
+
 }

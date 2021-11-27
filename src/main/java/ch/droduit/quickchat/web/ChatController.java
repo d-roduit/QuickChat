@@ -1,20 +1,19 @@
 package ch.droduit.quickchat.web;
 
 import ch.droduit.quickchat.ChatOperationAction;
-import ch.droduit.quickchat.domain.Chat;
-import ch.droduit.quickchat.domain.ChatMessage;
-import ch.droduit.quickchat.domain.ChatMessageRepository;
-import ch.droduit.quickchat.domain.ChatRepository;
+import ch.droduit.quickchat.domain.*;
 import ch.droduit.quickchat.dto.ChatOperationDto;
 import ch.droduit.quickchat.helper.CookieHelper;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import ch.droduit.quickchat.helper.SortHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +29,9 @@ public class ChatController {
 
     @Autowired
     private ChatMessageRepository chatMessageRepository;
+
+    @Autowired
+    private ChatUserRepository chatUserRepository;
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
@@ -80,8 +82,12 @@ public class ChatController {
         // Fetch data about chat and chat messages from DB
         Chat chat = chatRepository.findChatByUUID(UUID);
         List<ChatMessage> chatMessages = chatMessageRepository.findAllByChat_UUID(UUID);
+        List<ChatUser> chatUsersList = chatUserRepository.findAllByChat_IdOrderByUsernameAsc(chat.getId());
+        SortHelper.sortOPInChatUsers(chatUsersList);
+
         model.addAttribute("chat", chat);
         model.addAttribute("chatMessages", chatMessages);
+        model.addAttribute("chatUsers", chatUsersList);
 
         // Check if the user has already a username cookie.
         // If so, use it. Create it otherwise.

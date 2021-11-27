@@ -3,7 +3,6 @@ package ch.droduit.quickchat.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -12,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "Chats")
 public class Chat {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
@@ -33,13 +33,19 @@ public class Chat {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "chat")
     private List<ChatMessage> chatMessages;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "chat")
+    private List<ChatUser> chatUsers;
+
     public Chat() {}
 
-    public Chat(String name, OffsetDateTime creationDateTime, int lastUsernameUsed, String UUID) {
+    public Chat(String name, OffsetDateTime creationDateTime, int lastUsernameUsed, String UUID, List<ChatMessage> chatMessages, List<ChatUser> chatUsers) {
         this.name = name;
         this.creationDateTime = creationDateTime;
         this.lastUsernameUsed = lastUsernameUsed;
         this.UUID = UUID;
+        this.chatMessages = chatMessages;
+        this.chatUsers = chatUsers;
     }
 
     public long getId() {
@@ -90,6 +96,14 @@ public class Chat {
         this.chatMessages = chatMessages;
     }
 
+    public List<ChatUser> getChatUsers() {
+        return chatUsers;
+    }
+
+    public void setChatUsers(List<ChatUser> chatUsers) {
+        this.chatUsers = chatUsers;
+    }
+
     @Override
     public String toString() {
         return "Chat{" +
@@ -99,6 +113,7 @@ public class Chat {
                 ", lastUsernameUsed=" + lastUsernameUsed +
                 ", UUID='" + UUID + '\'' +
                 ", chatMessages=" + chatMessages +
+                ", chatUsers=" + chatUsers +
                 '}';
     }
 }
