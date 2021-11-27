@@ -31,6 +31,7 @@
 
 #middle-row #chat-box .chat-message-box .chat-message {
     white-space: pre-wrap;
+    overflow-wrap: anywhere;
 }
 
 #middle-row #chat-box .chat-message-box .chat-message-time {
