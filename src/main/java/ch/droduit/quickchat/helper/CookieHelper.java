@@ -15,8 +15,8 @@ public class CookieHelper {
         return null;
     }
 
-    public static Cookie createCookie(String UUID, String value, String path) {
-        Cookie cookie = new Cookie(UUID, value);
+    public static Cookie createCookie(String name, String value, String path) {
+        Cookie cookie = new Cookie(name, value);
         cookie.setMaxAge(60 * 60 * 24 * 365);
         cookie.setPath(path);
         return cookie;
