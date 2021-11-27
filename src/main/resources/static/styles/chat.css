@@ -2,6 +2,10 @@
     border-bottom: 1px solid var(--color-border-default);
 }
 
+#top-row #chat-title {
+    white-space: pre-wrap;
+}
+
 #top-row #copy-chat-url-btn {
     width: 120px;
 }
