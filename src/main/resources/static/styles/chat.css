@@ -30,7 +30,7 @@
 }
 
 #middle-row #chat-box .chat-message-box .chat-message {
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 #middle-row #chat-box .chat-message-box .chat-message-time {
