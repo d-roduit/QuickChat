@@ -37,13 +37,13 @@
             </div>
         </div>
 
-        <p th:if="${chats.isEmpty()}" class="text-grey">
+        <p th:if="${#lists.isEmpty(chats)}" class="text-grey">
             Hmmm 🤔, looks like no one has created a chat yet...
             <br><br>
             Will you be the first? 😏
         </p>
 
-        <div th:if="${!chats.isEmpty()}" id="chat-card-container">
+        <div th:if="!${#lists.isEmpty(chats)}" id="chat-card-container">
             <div class="chat-card card text-light text-center mb-4" th:each="chat: ${chats}">
                 <div class="card-header p-3 h-100">
                     <h6 class="card-title mb-3" th:text="${chat.getName()}"></h6>
