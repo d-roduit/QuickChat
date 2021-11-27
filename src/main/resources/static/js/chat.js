@@ -31,9 +31,17 @@ const copyChatURLToClipboard = () => {
         })
         .catch(err => console.log(err));
 }
+
 const resizeTextAreaToFitContent = () => {
     messageTextarea.style.height = '';
     messageTextarea.style.height = messageTextarea.scrollHeight + 'px';
+}
+
+const convertDateTimeInLocalTime = (dateTime) => {
+    const localDate = new Date(dateTime);
+    const hours = (localDate.getHours() < 10) ? `0${localDate.getHours()}` : localDate.getHours();
+    const minutes = (localDate.getMinutes() < 10) ? `0${localDate.getMinutes()}` : localDate.getMinutes();
+    return `${hours}:${minutes}`;
 }
 
 const addMessageToChatBox = (chatMessageObj) => {
@@ -42,11 +50,8 @@ const addMessageToChatBox = (chatMessageObj) => {
     const chatMessageTemplate = (chatMessageObj.username === username) ? chatMessageSentTemplate : chatMessageReceivedTemplate;
     const chatMessageClone = chatMessageTemplate.content.cloneNode(true);
 
-    const localDate = new Date(chatMessageObj.sendingDateTime);
-    const hours = (localDate.getHours() < 10) ? `0${localDate.getHours()}` : localDate.getHours();
-    const minutes = (localDate.getMinutes() < 10) ? `0${localDate.getMinutes()}` : localDate.getMinutes();
     chatMessageClone.querySelector(".chat-message").textContent = chatMessageObj.message;
-    chatMessageClone.querySelector(".chat-message-time").textContent = `${hours}:${minutes}`;
+    chatMessageClone.querySelector(".chat-message-time").textContent = convertDateTimeInLocalTime(chatMessageObj.sendingDateTime);
 
     if (chatMessageObj.username !== username) {
         const chatMessageUsernameElement = chatMessageClone.querySelector(".chat-message-username")
@@ -114,9 +119,17 @@ const sendMessageOnEnter = (event) => {
     }
 }
 
+const convertMessagesDateTimeInLocalTime = () => {
+    const chatMessageTimeElements = document.getElementsByClassName("chat-message-time");
+    for (let chatMessageTimeElement of chatMessageTimeElements) {
+        chatMessageTimeElement.textContent = convertDateTimeInLocalTime(chatMessageTimeElement.textContent);
+    }
+}
+
 /* Code execution */
-connectToWebsocket();
 copyChatURLButton.addEventListener("click", copyChatURLToClipboard);
 messageTextarea.addEventListener("input", resizeTextAreaToFitContent)
 messageTextarea.addEventListener("keydown", sendMessageOnEnter);
 sendMessageButton.addEventListener("click", sendMessageOnClick);
+convertMessagesDateTimeInLocalTime();
+connectToWebsocket();

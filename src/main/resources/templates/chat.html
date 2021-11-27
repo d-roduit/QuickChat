@@ -25,7 +25,19 @@
 
         <div id="middle-row" class="row d-flex flex-fill overflow-hidden">
             <div id="chat-box-wrapper" class="d-flex flex-column-reverse col-10 h-100 py-3 px-5 overflow-auto">
-                <div id="chat-box" class="text-light d-flex flex-column flex-nowrap"></div>
+                <div id="chat-box" class="text-light d-flex flex-column flex-nowrap">
+                    <th:block th:each="chatMessage : ${chatMessages}">
+                        <div th:if="${chatMessage.getUsername().equals(username)}" class="chat-message-box px-3 py-2 mb-2 rounded-3 align-self-end d-flex justify-content-between">
+                            <p th:text="${chatMessage.getMessage()}" class="chat-message mb-0 me-3"></p>
+                            <span th:text="${chatMessage.getSendingDateTime()}" class="chat-message-time d-flex align-items-end text-muted"></span>
+                        </div>
+                        <div th:unless="${chatMessage.getUsername().equals(username)}" class="chat-message-box px-3 py-2 mb-2 rounded-3 align-self-start d-flex justify-content-between">
+                            <span th:text="${chatMessage.getUsername()}" class="chat-message-username" th:classappend="${#strings.equals(chatMessage.getUsername(), 'OP')} ? 'text-warning' : 'text-info'"></span>
+                            <p th:text="${chatMessage.getMessage()}" class="chat-message mb-0 mx-3"></p>
+                            <span th:text="${chatMessage.getSendingDateTime()}" class="chat-message-time d-flex align-items-end text-muted"></span>
+                        </div>
+                    </th:block>
+                </div>
             </div>
             <div id="users-box" class="col-2 text-grey h-100 overflow-auto">
                 <ul class="list-group list-group-flush">
@@ -44,7 +56,7 @@
             </div>
             <div id="username-box" class="col-2 d-flex justify-content-center align-items-center px-0">
                 <p class="mb-0 text-center text-grey">
-                    You are:&nbsp;<span th:class="${#strings.equals(username,'OP')} ? 'text-warning' : 'text-info'" th:text="${username}"></span>
+                    You are:&nbsp;<span th:class="${#strings.equals(username, 'OP')} ? 'text-warning' : 'text-info'" th:text="${username}"></span>
                 </p>
             </div>
         </div>
