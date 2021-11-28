@@ -45,9 +45,6 @@ public class ChatController {
         return "index";
     }
 
-    @GetMapping("tryChat")
-    public String tryChat() { return "try_chat"; }
-
     @PostMapping("create")
     public String createChat(@ModelAttribute Chat newChat, HttpServletResponse response) {
         // Sanitize input
