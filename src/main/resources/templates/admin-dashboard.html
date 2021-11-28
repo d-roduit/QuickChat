@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head(title = ~{::title}, styles = ~{})">
+    <title>QuickChat - Administration</title>
+
+<!--    <link rel="stylesheet" th:href="@{/styles/login.css}">-->
+</head>
+<body th:replace="layout :: body(content = ~{::main}, scripts = ~{})">
+<main class="container mb-5">
+    <h4 class="my-5 text-grey">Administration dashboard</h4>
+
+    <div class="row">
+        <div class="col-3">
+            Administratoin
+        </div>
+    </div>
+</main>
+</body>
+</html>

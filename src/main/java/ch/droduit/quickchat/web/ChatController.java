@@ -7,7 +7,6 @@ import ch.droduit.quickchat.dto.ChatsActionDto;
 import ch.droduit.quickchat.helper.CookieHelper;
 import ch.droduit.quickchat.helper.SortHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
