@@ -1,6 +1,7 @@
 package ch.droduit.quickchat;
 
-public enum ChatOperationAction {
+public enum ChatsAction {
     CREATE,
+    UPDATE,
     DELETE
 }

@@ -10,7 +10,7 @@
     width: 120px;
 }
 
-#top-row #nb-active-users-box,
+#top-row #nb-chat-users-box,
 #middle-row #users-box,
 #bottom-row #username-box {
     border-left: 1px solid var(--color-border-default);

@@ -1,6 +1,9 @@
 package ch.droduit.quickchat.web;
 
+import ch.droduit.quickchat.ChatsAction;
 import ch.droduit.quickchat.domain.*;
+import ch.droduit.quickchat.dto.ChatDataDto;
+import ch.droduit.quickchat.dto.ChatsActionDto;
 import ch.droduit.quickchat.helper.SortHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
@@ -13,6 +16,7 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -78,11 +82,14 @@ public class WebSocketController {
                             "/topic/chat/" + chat.getUUID() + "/users",
                             chatUsersList
                     );
-                }
 
+                    List<ChatDataDto> chatDataDtoList = new ArrayList<>();
+                    chatDataDtoList.add(new ChatDataDto(chat, chatUsersList.size()));
+                    ChatsActionDto chatsActionDto = new ChatsActionDto(chatDataDtoList, ChatsAction.UPDATE);
+                    simpMessagingTemplate.convertAndSend("/topic/chats", chatsActionDto);
+                }
             }
         }
-
     }
 
     @EventListener
@@ -97,8 +104,18 @@ public class WebSocketController {
                 Chat chat = chatUser.getChat();
                 chatUserRepository.delete(chatUser);
                 List<ChatUser> chatUsersList = chatUserRepository.findAllByChat_IdOrderByUsernameAsc(chat.getId());
-                SortHelper.sortOPInChatUsers(chatUsersList);
 
+                if (chatUsersList.isEmpty()) {
+                    chatRepository.delete(chat);
+
+                    List<ChatDataDto> chatDataDtoList = new ArrayList<>();
+                    chatDataDtoList.add(new ChatDataDto(chat, 0));
+                    ChatsActionDto chatsActionDto = new ChatsActionDto(chatDataDtoList, ChatsAction.DELETE);
+                    simpMessagingTemplate.convertAndSend("/topic/chats", chatsActionDto);
+                    return;
+                }
+
+                SortHelper.sortOPInChatUsers(chatUsersList);
                 simpMessagingTemplate.convertAndSend(
                         "/topic/chat/" + chat.getUUID() + "/users",
                         chatUsersList

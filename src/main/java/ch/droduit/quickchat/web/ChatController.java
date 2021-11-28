@@ -1,8 +1,9 @@
 package ch.droduit.quickchat.web;
 
-import ch.droduit.quickchat.ChatOperationAction;
+import ch.droduit.quickchat.ChatsAction;
 import ch.droduit.quickchat.domain.*;
-import ch.droduit.quickchat.dto.ChatOperationDto;
+import ch.droduit.quickchat.dto.ChatDataDto;
+import ch.droduit.quickchat.dto.ChatsActionDto;
 import ch.droduit.quickchat.helper.CookieHelper;
 import ch.droduit.quickchat.helper.SortHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -68,8 +70,10 @@ public class ChatController {
         );
         response.addCookie(usernameCookie);
 
-        ChatOperationDto chatOperationDto = new ChatOperationDto(newChat, ChatOperationAction.CREATE);
-        simpMessagingTemplate.convertAndSend("/topic/chats", chatOperationDto);
+        List<ChatDataDto> chatDataDtoList = new ArrayList<>();
+        chatDataDtoList.add(new ChatDataDto(newChat, 1));
+        ChatsActionDto chatsActionDto = new ChatsActionDto(chatDataDtoList, ChatsAction.CREATE);
+        simpMessagingTemplate.convertAndSend("/topic/chats", chatsActionDto);
 
         return "redirect:chat/" + newChat.getUUID();
     }

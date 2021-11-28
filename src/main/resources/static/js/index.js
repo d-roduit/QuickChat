@@ -28,45 +28,67 @@ const handleCreateChatFormSubmit = (event) => {
     }
 }
 
-const addChatCardToChatCardsContainer = (chatObj) => {
+const addChatCardsToChatCardsContainer = (chatDataDtoList) => {
     if (chatCardsContainer.childElementCount === 0) {
-        noChatCardText.remove();
+        noChatCardText.classList.add("d-none");
     }
 
-    const chatCardClone = chatCardTemplate.content.cloneNode(true);
-
-    chatCardClone.querySelector(".card-title").textContent = chatObj.name;
-    chatCardClone.querySelector(".card-chat-url").href = `/chat/${chatObj.uuid}`;
-
-    chatCardsContainer.appendChild(chatCardClone);
+    let chatCardClone;
+    chatDataDtoList.forEach((chatDataDto) => {
+        chatCardClone = chatCardTemplate.content.cloneNode(true);
+        chatCardClone.querySelector(".chat-card").id = `chat-card-${chatDataDto.chat.id}`;
+        chatCardClone.querySelector(".card-title").textContent = chatDataDto.chat.name;
+        chatCardClone.querySelector(".nb-chat-users").textContent = chatDataDto.nbChatUsers;
+        chatCardClone.querySelector(".card-chat-url").href = `/chat/${chatDataDto.chat.uuid}`;
+        chatCardsContainer.appendChild(chatCardClone);
+    });
 }
 
-const removeChatCardFromChatCardsContainer = (chatObj) => {
-
+const updateNbChatUsersInChatCards = (chatDataDtoList) => {
+    let chatCardToUpdate;
+    chatDataDtoList.forEach((chatDataDto) => {
+        chatCardToUpdate = document.getElementById(`chat-card-${chatDataDto.chat.id}`);
+        chatCardToUpdate.querySelector(".nb-chat-users").textContent = chatDataDto.nbChatUsers;
+    });
 }
 
-const handleChatCardToChatCardsContainer = (chatOperationObj) => {
-    switch (chatOperationObj.action) {
+const removeChatCardsFromChatCardsContainer = (chatDataDtoList) => {
+    let chatCardToRemove;
+    chatDataDtoList.forEach((chatDataDto) => {
+        chatCardToRemove = document.getElementById(`chat-card-${chatDataDto.chat.id}`);
+        chatCardToRemove.remove();
+    });
+
+    if (chatCardsContainer.childElementCount === 0) {
+        noChatCardText.classList.remove("d-none");
+    }
+}
+
+const handleChatCards = (chatsActionObj) => {
+    switch (chatsActionObj.action) {
         case "CREATE":
-            addChatCardToChatCardsContainer(chatOperationObj.chat);
+            addChatCardsToChatCardsContainer(chatsActionObj.chatDataDtoList);
+            break;
+        case "UPDATE":
+            updateNbChatUsersInChatCards(chatsActionObj.chatDataDtoList);
             break;
         case "DELETE":
-            removeChatCardFromChatCardsContainer(chatOperationObj.chat);
+            removeChatCardsFromChatCardsContainer(chatsActionObj.chatDataDtoList);
             break;
         default:
             break;
     }
 }
 
-const chatsSubscriptionCallback = (chatOperationAsJSON) => {
-    handleChatCardToChatCardsContainer(JSON.parse(chatOperationAsJSON.body));
+const chatsSubscriptionCallback = (chatsActionAsJSON) => {
+    handleChatCards(JSON.parse(chatsActionAsJSON.body));
 }
 
 const websocketConnectionCallback = (frame) => {
     if (stompClient != null) {
         stompClient.subscribe(
             websocketEndpoints.chatsSubscription,
-            (chatOperationAsJSON) => chatsSubscriptionCallback(chatOperationAsJSON)
+            (chatsActionAsJSON) => chatsSubscriptionCallback(chatsActionAsJSON)
         );
     }
 }

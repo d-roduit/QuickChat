@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <p id="no-chat-card-text" th:if="${#lists.isEmpty(chats)}" class="text-grey">
+        <p id="no-chat-card-text" class="text-grey" th:classappend="${#lists.isEmpty(chats)} ? '' : 'd-none'">
             Hmmm 🤔, looks like no one has created a chat yet...
             <br><br>
             Will you be the first? 😏
@@ -45,12 +45,12 @@
 
         <div id="chat-cards-container">
             <th:block th:if="!${#lists.isEmpty(chats)}">
-                <div class="chat-card card text-light text-center mb-4" th:each="chat: ${chats}">
+                <div th:id="'chat-card-' + ${chat.getId()}" class="chat-card card text-light text-center mb-4" th:each="chat: ${chats}">
                     <div class="card-header p-3 h-100">
                         <h6 class="card-title mb-3" th:text="${chat.getName()}"></h6>
                         <p class="user-status mb-0">
-    <!--                        <span class="circle-status" th:classappend="${chat.getNbUsersConnected() > 0} ? active : inactive"></span>-->
-    <!--                        <span th:text="${chat.getNbUsersConnected()}" th:remove="tag"></span> online-->
+                            <span class="circle-status active"></span>
+                            <span class="nb-chat-users"></span> online
                         </p>
                     </div>
                     <div class="card-footer">
@@ -65,8 +65,8 @@
                 <div class="card-header p-3 h-100">
                     <h6 class="card-title mb-3"></h6>
                     <p class="user-status mb-0">
-<!--                        <span class="circle-status" th:classappend="${chat.getNbUsersConnected() > 0} ? active : inactive"></span>-->
-<!--                        <span th:text="${chat.getNbUsersConnected()}" th:remove="tag"></span> online-->
+                        <span class="circle-status active"></span>
+                        <span class="nb-chat-users"></span> online
                     </p>
                 </div>
                 <div class="card-footer">
