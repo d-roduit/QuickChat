@@ -1,8 +1,6 @@
 package ch.droduit.quickchat.web;
 
-import ch.droduit.quickchat.ChatUserOperationAction;
 import ch.droduit.quickchat.domain.*;
-import ch.droduit.quickchat.dto.ChatUserOperationDto;
 import ch.droduit.quickchat.helper.SortHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
