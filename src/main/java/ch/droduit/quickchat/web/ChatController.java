@@ -41,9 +41,6 @@ public class ChatController {
     @GetMapping({"/", "index"})
     public String index(Model model) {
         model.addAttribute("newChat", new Chat());
-        model.addAttribute(
-                "chats",
-                chatRepository.findAll(Sort.by("creationDateTime").ascending()));
         return "index";
     }
 

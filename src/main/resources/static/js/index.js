@@ -9,6 +9,7 @@ let stompClient = null;
 
 const websocketEndpoints = {
     registration: "/register-websocket",
+    perUserChatsSubscription: `/user/topic/chats`,
     chatsSubscription: `/topic/chats`
 };
 
@@ -29,6 +30,10 @@ const handleCreateChatFormSubmit = (event) => {
 }
 
 const addChatCardsToChatCardsContainer = (chatDataDtoList) => {
+    if (chatDataDtoList.length === 0) {
+        return;
+    }
+
     if (chatCardsContainer.childElementCount === 0) {
         noChatCardText.classList.add("d-none");
     }
@@ -45,6 +50,10 @@ const addChatCardsToChatCardsContainer = (chatDataDtoList) => {
 }
 
 const updateNbChatUsersInChatCards = (chatDataDtoList) => {
+    if (chatDataDtoList.length === 0) {
+        return;
+    }
+
     let chatCardToUpdate;
     chatDataDtoList.forEach((chatDataDto) => {
         chatCardToUpdate = document.getElementById(`chat-card-${chatDataDto.chat.id}`);
@@ -53,6 +62,10 @@ const updateNbChatUsersInChatCards = (chatDataDtoList) => {
 }
 
 const removeChatCardsFromChatCardsContainer = (chatDataDtoList) => {
+    if (chatDataDtoList.length === 0) {
+        return;
+    }
+
     let chatCardToRemove;
     chatDataDtoList.forEach((chatDataDto) => {
         chatCardToRemove = document.getElementById(`chat-card-${chatDataDto.chat.id}`);
@@ -80,12 +93,33 @@ const handleChatCards = (chatsActionObj) => {
     }
 }
 
+const perUserChatsSubscriptionCallback = (chatsActionAsJSON) => {
+    const chatsActionObj = JSON.parse(chatsActionAsJSON.body);
+
+    switch (chatsActionObj.action) {
+        case "CREATE":
+            if (chatsActionObj.chatDataDtoList.length === 0) {
+                noChatCardText.classList.remove("d-none");
+                return;
+            }
+            addChatCardsToChatCardsContainer(chatsActionObj.chatDataDtoList);
+            break;
+        default:
+            break;
+    }
+}
+
 const chatsSubscriptionCallback = (chatsActionAsJSON) => {
     handleChatCards(JSON.parse(chatsActionAsJSON.body));
 }
 
 const websocketConnectionCallback = (frame) => {
     if (stompClient != null) {
+        stompClient.subscribe(
+            websocketEndpoints.perUserChatsSubscription,
+            (chatsActionAsJSON) => perUserChatsSubscriptionCallback(chatsActionAsJSON)
+        );
+
         stompClient.subscribe(
             websocketEndpoints.chatsSubscription,
             (chatsActionAsJSON) => chatsSubscriptionCallback(chatsActionAsJSON)

@@ -37,28 +37,13 @@
             </div>
         </div>
 
-        <p id="no-chat-card-text" class="text-grey" th:classappend="${#lists.isEmpty(chats)} ? '' : 'd-none'">
+        <p id="no-chat-card-text" class="d-none text-grey">
             Hmmm 🤔, looks like no one has created a chat yet...
             <br><br>
             Will you be the first? 😏
         </p>
 
-        <div id="chat-cards-container">
-            <th:block th:if="!${#lists.isEmpty(chats)}">
-                <div th:id="'chat-card-' + ${chat.getId()}" class="chat-card card text-light text-center mb-4" th:each="chat: ${chats}">
-                    <div class="card-header p-3 h-100">
-                        <h6 class="card-title mb-3" th:text="${chat.getName()}"></h6>
-                        <p class="user-status mb-0">
-                            <span class="circle-status active"></span>
-                            <span class="nb-chat-users"></span> online
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a th:href="@{/chat/{UUID}(UUID=${chat.getUUID()})}" class="card-chat-url btn btn-outline-secondary btn-subtile d-block">Join</a>
-                    </div>
-                </div>
-            </th:block>
-        </div>
+        <div id="chat-cards-container"></div>
 
         <template id="chat-card-template">
             <div class="chat-card card text-light text-center mb-4">

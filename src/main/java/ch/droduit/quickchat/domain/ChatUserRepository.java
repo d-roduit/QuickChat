@@ -10,4 +10,5 @@ public interface ChatUserRepository extends CrudRepository<ChatUser, Long> {
     ChatUser findByChat_IdAndUsername(long chatId, String username);
     ChatUser findByPrincipalUserName(String principalUserName);
     List<ChatUser> findAllByChat_IdOrderByUsernameAsc(long chatId);
+    int countByChat_Id(long chatId);
 }
