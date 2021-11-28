@@ -1,6 +1,9 @@
 package ch.droduit.quickchat;
 
-import ch.droduit.quickchat.domain.*;
+import ch.droduit.quickchat.domain.Chat;
+import ch.droduit.quickchat.domain.ChatRepository;
+import ch.droduit.quickchat.domain.ChatUser;
+import ch.droduit.quickchat.domain.ChatUserRepository;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -16,6 +19,9 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * <b>Test class for {@link ChatUserRepository}.</b>
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

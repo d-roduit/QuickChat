@@ -2,6 +2,15 @@ package ch.droduit.quickchat.domain;
 
 import javax.persistence.*;
 
+/**
+ * <b>Represents a means of authentication to access the administration dashboard.</b>
+ * <p>
+ *     This user is in no way linked to the operation of the chats.
+ *     It is ONLY a means of authentication to access the administration dashboard.
+ * </p>
+ *
+ * @see UserRepository
+ */
 @Entity
 @Table(name = "Users")
 public class User {

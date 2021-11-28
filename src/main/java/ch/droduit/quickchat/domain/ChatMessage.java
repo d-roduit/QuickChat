@@ -6,6 +6,12 @@ import org.hibernate.annotations.GenerationTime;
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 
+/**
+ * <b>Represents a message sent in a chat.</b>
+ *
+ * @see Chat
+ * @see ChatMessageRepository
+ */
 @Entity
 @Table(name = "ChatMessages")
 public class ChatMessage {

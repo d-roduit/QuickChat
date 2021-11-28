@@ -9,6 +9,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * <b>
+ *     Service implementation of the {@link UserDetailsService} interface
+ *     to manage a {@link User} and its data as a mean of authentication.
+ * </b>
+ *
+ * @see UserDetails
+ * @see UserDetailsService
+ * @see User
+ * @see UserRepository
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

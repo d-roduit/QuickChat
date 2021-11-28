@@ -19,6 +19,9 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * <b>Test class for {@link ChatMessageRepository}.</b>
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

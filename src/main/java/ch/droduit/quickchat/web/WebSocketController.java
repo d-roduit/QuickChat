@@ -20,6 +20,17 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <b>
+ *     Controller class to manage all asynchronous WebSocket requests / responses
+ * </b>
+ *
+ * @see ch.droduit.quickchat.WebSocketConfig
+ * @see ChatRepository
+ * @see ChatMessageRepository
+ * @see ChatUserRepository
+ * @see SimpMessagingTemplate
+ */
 @Controller
 public class WebSocketController {
 

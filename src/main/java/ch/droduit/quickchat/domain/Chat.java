@@ -8,6 +8,18 @@ import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+/**
+ * <b>Represents a conversation between two or more users.</b>
+ *
+ * <p>
+ *     A chat contains messages, represented as a list of ChatMessage,
+ *     and users, represented as a list of ChatUser.
+ * </p>
+ *
+ * @see ChatMessage
+ * @see ChatUser
+ * @see ChatRepository
+ */
 @Entity
 @Table(name = "Chats")
 public class Chat {

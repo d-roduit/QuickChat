@@ -2,6 +2,12 @@ package ch.droduit.quickchat.domain;
 
 import javax.persistence.*;
 
+/**
+ * <b>Represents a participant in a chat.</b>
+ *
+ * @see Chat
+ * @see ChatUserRepository
+ */
 @Entity
 @Table(name = "ChatUsers")
 public class ChatUser {

@@ -22,6 +22,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * <b>
+ *     Controller class to manage all HTTP requests related to the chats.
+ * </b>
+ *
+ * @see ChatRepository
+ * @see ChatMessageRepository
+ * @see ChatUserRepository
+ * @see SimpMessagingTemplate
+ */
 @Controller
 public class ChatController {
 

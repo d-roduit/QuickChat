@@ -8,6 +8,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * <b>SpringBootApplication class for the QuickChat application.</b>
+ *
+ * <p>
+ *     This class runs the QuickChat application and insert in database,
+ *     using the {@link #insertData()} method, a {@link User} which can
+ *     be used for authentication to the administration area.
+ * </p>
+ */
 @SpringBootApplication
 public class QuickchatApplication {
 

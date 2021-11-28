@@ -11,6 +11,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * <b>
+ *     Implementation of {@link WebSecurityConfigurerAdapter} that
+ *     configures the security of the Quickchat application.
+ * </b>
+ *
+ * <p>
+ *     This class is used to provide a secure and authenticated access
+ *     to the administration area.
+ * </p>
+ *
+ * @see WebSecurityConfigurerAdapter
+ * @see UserDetailsServiceImpl
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

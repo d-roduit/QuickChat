@@ -3,6 +3,11 @@ package ch.droduit.quickchat.helper;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * <b>Helper class for managing HTTP cookies.</b>
+ *
+ * @see HttpServletRequest
+ */
 public class CookieHelper {
 
     public static String extractCookie(HttpServletRequest request, String cookieName) {

@@ -14,6 +14,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * <b>Test class for {@link UserRepository}.</b>
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

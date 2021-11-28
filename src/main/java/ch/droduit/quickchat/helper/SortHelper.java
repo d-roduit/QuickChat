@@ -4,6 +4,11 @@ import ch.droduit.quickchat.domain.ChatUser;
 
 import java.util.List;
 
+/**
+ * <b>Helper class for sorting a list of chat users.</b>
+ *
+ * @see ChatUser
+ */
 public class SortHelper {
 
     public static void sortOPInChatUsers(List<ChatUser> chatUsersList) {
