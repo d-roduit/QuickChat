@@ -1,19 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="layout :: head(title = ~{::title}, styles = ~{})">
     <title>QuickChat - Administration</title>
-
-<!--    <link rel="stylesheet" th:href="@{/styles/login.css}">-->
 </head>
 <body th:replace="layout :: body(content = ~{::main}, scripts = ~{})">
 <main class="container mb-5">
-    <h4 class="my-5 text-grey">Administration dashboard</h4>
+    <h3 class="my-5 text-grey">Administration dashboard</h3>
 
-    <div class="row">
-        <div class="col-3">
-            Administratoin
-        </div>
-    </div>
+    <h4 class="mb-3 text-grey">Chat</h4>
+
+    <table class="table table-dark table-hover text-grey">
+        <thead>
+            <tr>
+                <th class="align-middle">Id</th>
+                <th class="align-middle">UUID</th>
+                <th class="align-middle">Name</th>
+                <th class="align-middle">Creation Date</th>
+                <th class="align-middle">Unique visitors</th>
+                <th></th>
+                <th sec:authorize="hasAuthority('ADMIN')"></th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="chat: ${chats}">
+            <td class="align-middle" th:text="${chat.getId()}"></td>
+            <td class="align-middle" th:text="${chat.getUUID()}"></td>
+            <td class="align-middle" th:text="${chat.getName()}"></td>
+            <td class="align-middle" th:text="${#temporals.format(chat.getCreationDateTime(), 'dd.MM.yyyy HH:mm')}"></td>
+            <td class="align-middle" th:text="${chat.getLastUsernameUsed()}"></td>
+            <td class="align-middle">
+                <a th:href="@{/chat/{UUID}(UUID=${chat.getUUID()})}" class="me-2"><i class="fas fa-eye"></i></a>
+            </td>
+            <td sec:authorize="hasAuthority('ADMIN')" class="align-middle">
+                <a th:href="@{/chat/delete/{UUID}(UUID=${chat.getUUID()})}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 </body>
 </html>

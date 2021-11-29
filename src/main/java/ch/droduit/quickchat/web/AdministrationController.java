@@ -1,12 +1,19 @@
 package ch.droduit.quickchat.web;
 
+import ch.droduit.quickchat.domain.Chat;
+import ch.droduit.quickchat.domain.ChatRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <b>
@@ -18,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class AdministrationController {
+
+    @Autowired
+    private ChatRepository chatRepository;
 
     @RequestMapping("admin")
     public String login() {
@@ -36,7 +46,9 @@ public class AdministrationController {
     }
 
     @GetMapping("admin/dashboard")
-    public String adminDashboard() {
+    public String adminDashboard(Model model) {
+        List<Chat> chats = chatRepository.findAll(Sort.by("id").ascending());
+        model.addAttribute("chats", chats);
         return "admin-dashboard";
     }
 }
