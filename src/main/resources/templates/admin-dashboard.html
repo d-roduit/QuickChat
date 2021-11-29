@@ -34,7 +34,7 @@
                 <a th:href="@{/chat/{UUID}(UUID=${chat.getUUID()})}" class="me-2"><i class="fas fa-eye"></i></a>
             </td>
             <td sec:authorize="hasAuthority('ADMIN')" class="align-middle">
-                <a th:href="@{/chat/delete/{UUID}(UUID=${chat.getUUID()})}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                <a th:href="@{/admin/delete/{UUID}(UUID=${chat.getUUID()})}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
             </td>
         </tr>
         </tbody>

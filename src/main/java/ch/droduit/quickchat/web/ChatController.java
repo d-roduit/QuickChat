@@ -8,9 +8,6 @@ import ch.droduit.quickchat.helper.CookieHelper;
 import ch.droduit.quickchat.helper.SortHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -118,25 +115,6 @@ public class ChatController {
         model.addAttribute("username", username);
 
         return "chat";
-    }
-
-    @GetMapping("chat/delete/{UUID}")
-    public String deleteChat(@PathVariable("UUID") String UUID) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "redirect:/";
-        }
-
-        Chat chat = chatRepository.findChatByUUID(UUID);
-        List<ChatDataDto> chatDataDtoList = new ArrayList<>();
-
-        chatRepository.delete(chat);
-
-        chatDataDtoList.add(new ChatDataDto(chat, 0));
-        ChatsActionDto chatsActionDto = new ChatsActionDto(chatDataDtoList, ChatsAction.DELETE);
-        simpMessagingTemplate.convertAndSend("/topic/chats", chatsActionDto);
-
-        return "redirect:/admin/dashboard";
     }
 
 }
