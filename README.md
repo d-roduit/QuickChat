@@ -24,6 +24,7 @@
 1. [Getting Started](#getting-started)
 2. [Technologies](#technologies)
 3. [Guides and resources](#guides-and-resources)
+4. [License](#license)
 
 ## <a name="getting-started"></a>Getting Started
 
