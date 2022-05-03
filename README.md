@@ -64,3 +64,8 @@ You can find all the links to the technologies used in the [Guides and resources
 * [JUnit](https://junit.org/) - Java testing framework
 * [PostgreSQL](https://www.postgresql.org/) - Database
 * [Maven](https://maven.apache.org/) - Software project management tool
+
+
+## <a name="license"></a>License
+
+This project is licensed under the MIT License
