@@ -1,5 +1,23 @@
-# QuickChat
-QuickChat is an anonymous chat website to easily discuss on any topic you want without storing any message. What happens on QuickChat stays on QuickChat 😉
+<div align="center">
+<h1 align="center">
+   QuickChat
+</h1>
+
+<p align="center">
+    <strong>QuickChat is an anonymous chat website to easily discuss on any topic you want without storing any message.<br/>What happens on QuickChat stays on QuickChat 😉</strong>
+</p>
+
+</div>
+
+<div align="center">
+    <a href="https://github.com/d-roduit/QuickChat">
+        <img src="demo_screenshots/homescreen.png" align="center" width="80%" alt="QuickChat homescreen screenshot">
+       <br/>
+       <br/>
+        <img src="demo_screenshots/chat.png" align="center" width="80%" alt="QuickChat chat screenshot">
+    </a>
+</div>
+<br>
 
 ## Table of Contents
 
