@@ -24,7 +24,8 @@
 1. [Getting Started](#getting-started)
 2. [Technologies](#technologies)
 3. [Guides and resources](#guides-and-resources)
-4. [License](#license)
+4. [Authors](#authors)
+5. [License](#license)
 
 ## <a name="getting-started"></a>Getting Started
 
@@ -33,12 +34,16 @@
 You will need to follow the steps below in order to run the website :
 
 1. Install the Java runtime on your computer (if not already done). JDK17 or higher is required.
-2. Download the project files in ZIP format to your computer.
-3. Unzip the downloaded file.
-4. Open the project folder (the unzipped folder) in your prefered IDE (Eclipse, IntelliJ IDEA, etc.)
-5. Run the website via the IDE (it will provide you with the website URL, something like `http://localhost:8080`)
+2. Download the project files to your computer and open the project in your prefered IDE (Eclipse, IntelliJ IDEA, etc.)
+3. Configure the database connection information by adding the following values to the project's environment variables:
+   - `SPRING_DATASOURCE_URL=jdbc:postgresql://<host>:<port>/<database_name>`
+   - `SPRING_DATASOURCE_USERNAME=<username>`
+   - `SPRING_DATASOURCE_PASSWORD=<password>`
 
-Once the 5 steps have been done, **you are ready to chat with your friends via QuickChat!**
+   _N. B. : The project is ready to be used with PostgreSQL, but you can of course use another database. Just change the database and database driver values in the `application.properties` file, download the driver for your database via Maven and set the SPRING_DATASOURCE_URL environment variable to the correct URL. If needed, more info on [HowToDoInJava - Spring Boot DataSource Configuration](https://howtodoinjava.com/spring-boot2/datasource-configuration/)._
+4. Run the website via the IDE (it will provide you with the website URL, something like `http://localhost:8080`)
+
+Once the 4 steps have been done, **you are ready to chat with your friends via QuickChat!**
 
 ## <a name="technologies"></a>Technologies
 
@@ -66,6 +71,20 @@ You can find all the links to the technologies used in the [Guides and resources
 * [PostgreSQL](https://www.postgresql.org/) - Database
 * [Maven](https://maven.apache.org/) - Software project management tool
 
+## <a name="authors"></a>Authors
+
+<table>
+   <tbody>
+      <tr>
+         <td align="center" valign="top" width="100%">
+            <a href="https://github.com/d-roduit">
+            <img src="https://github.com/d-roduit.png?s=75" width="75" height="75"><br />
+            Daniel Roduit
+            </a>
+         </td>
+      </tr>
+   </tbody>
+</table>
 
 ## <a name="license"></a>License
 
