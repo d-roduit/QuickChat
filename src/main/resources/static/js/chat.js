@@ -5,6 +5,7 @@ const sendMessageButton = document.getElementById("send-message-button");
 const nbActiveUsersElement = document.getElementById("nb-chat-users");
 const chatBox = document.getElementById("chat-box");
 const chatUsersListColumnElement = document.getElementById("users-list-column");
+const chatUsersListModalElement = document.getElementById("users-list-modal");
 const chatMessageSentTemplate = document.getElementById("chat-message-sent-template");
 const chatMessageReceivedTemplate = document.getElementById("chat-message-received-template");
 const chatUserTemplate = document.getElementById("chat-user-template");
@@ -140,8 +141,24 @@ const updateChatUsersListColumn = (chatUsersList) => {
     nbActiveUsersElement.textContent = chatUsersList.length;
 }
 
+const updateChatUsersListModal = (chatUsersList) => {
+    chatUsersListModalElement.innerHTML = "";
+
+    let chatUserClone;
+    let chatUserElement;
+
+    chatUsersList.forEach((chatUserEntry) => {
+        chatUserClone = chatUserTemplate.content.cloneNode(true);
+        chatUserElement = chatUserClone.querySelector(".chat-user");
+        chatUserElement.textContent = chatUserEntry.username;
+        chatUserElement.classList.add((chatUserEntry.username === "OP") ? "text-warning" : "text-info");
+        chatUsersListModalElement.appendChild(chatUserClone);
+    });
+}
+
 const updateChatUsersLists = (chatUsersList) => {
     updateChatUsersListColumn(chatUsersList);
+    updateChatUsersListModal(chatUsersList);
 }
 
 const chatUsersSubscriptionCallback = (chatUsersListAsJSON) => {

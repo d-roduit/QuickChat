@@ -16,7 +16,8 @@
                     </button>
                 </div>
             </div>
-            <div id="nb-chat-users-box" class="col-2 d-flex justify-content-center align-items-center px-0">
+            <div id="nb-chat-users-box" class="col-2 position-relative d-flex justify-content-center align-items-center px-0">
+                <div class="position-absolute top-0 left-0 h-100 w-100 d-block d-sm-none" data-bs-toggle="modal" data-bs-target="#users-modal"></div>
                 <p class="mb-0 text-center text-grey">
                     <span class="circle-status active"></span> <span th:text="${#lists.size(chatUsers)}" id="nb-chat-users"></span><span class="d-none d-md-inline-block">&nbsp;online users</span>
                 </p>
@@ -61,6 +62,32 @@
                 <p class="mb-0 text-center text-grey">
                     You are:&nbsp;<span th:class="${#strings.equals(username, 'OP')} ? 'text-warning' : 'text-info'" th:text="${username}"></span>
                 </p>
+            </div>
+        </div>
+
+        <!-- Modal for users list -->
+        <div id="users-modal" class="modal fade">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content text-light">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Online users</h5>
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close" class="text-light bg-transparent border-0 px-2 fs-5">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul id="users-list-modal" class="list-group list-group-flush">
+                            <th:block th:each="chatUser: ${chatUsers}">
+                                <li th:text="${chatUser.getUsername()}" class="chat-user list-group-item bg-transparent" th:classappend="${#strings.equals(chatUser.getUsername(), 'OP')} ? 'text-warning' : 'text-info'"></li>
+                            </th:block>
+                        </ul>
+                    </div>
+                    <div class="modal-footer justify-content-start">
+                        <p class="mb-0 text-grey">
+                            You are:&nbsp;<span th:class="${#strings.equals(username, 'OP')} ? 'text-warning' : 'text-info'" th:text="${username}"></span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 

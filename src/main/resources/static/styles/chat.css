@@ -66,6 +66,23 @@
     border: 1px solid var(--color-border-default);
 }
 
+#users-modal .modal-content {
+    background-color: var(--color-background-chat-card-default);
+}
+
+#users-modal .modal-header {
+    border-bottom: 1px solid var(--color-border-default);
+}
+
+#users-modal .modal-footer {
+    border-top: 1px solid var(--color-border-default);
+}
+
+#users-modal #chat-name {
+    border: 1px solid var(--color-border-default);
+    background-color: var(--color-background-input);
+}
+
 /*
     Responsive Breakpoints
 */
