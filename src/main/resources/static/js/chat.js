@@ -4,7 +4,7 @@ const messageTextarea = document.getElementById("message-textarea");
 const sendMessageButton = document.getElementById("send-message-button");
 const nbActiveUsersElement = document.getElementById("nb-chat-users");
 const chatBox = document.getElementById("chat-box");
-const chatUsersListElement = document.getElementById("users-list");
+const chatUsersListColumnElement = document.getElementById("users-list-column");
 const chatMessageSentTemplate = document.getElementById("chat-message-sent-template");
 const chatMessageReceivedTemplate = document.getElementById("chat-message-received-template");
 const chatUserTemplate = document.getElementById("chat-user-template");
@@ -26,10 +26,10 @@ const copyChatURLToClipboard = () => {
         .then(() => {
             if (isCopyChatURLButtonClickable) {
                 isCopyChatURLButtonClickable = false;
-                const defaultText = copyChatURLButton.textContent;
-                copyChatURLButton.innerHTML = "Copied <i class=\"fas fa-check\"></i>";
+                const defaultContent = copyChatURLButton.innerHTML;
+                copyChatURLButton.innerHTML = "Copied <i class=\"fas fa-check ms-1\"></i>";
                 setTimeout(() => {
-                    copyChatURLButton.textContent = defaultText;
+                    copyChatURLButton.innerHTML = defaultContent;
                     isCopyChatURLButtonClickable = true;
                 }, 1000);
             }
@@ -99,11 +99,9 @@ const addMessageToChatBox = (chatMessageObj) => {
     chatMessageClone.querySelector(".chat-message").textContent = chatMessageObj.message;
     chatMessageClone.querySelector(".chat-message-time").textContent = convertDateTimeInLocalTime(chatMessageObj.sendingDateTime);
 
-    if (chatMessageObj.username !== username) {
-        const chatMessageUsernameElement = chatMessageClone.querySelector(".chat-message-username")
-        chatMessageUsernameElement.textContent = chatMessageObj.username;
-        chatMessageUsernameElement.classList.add((chatMessageObj.username === "OP") ? "text-warning" : "text-info");
-    }
+    const chatMessageUsernameElement = chatMessageClone.querySelector(".chat-message-username")
+    chatMessageUsernameElement.textContent = chatMessageObj.username;
+    chatMessageUsernameElement.classList.add((chatMessageObj.username === "OP") ? "text-warning" : "text-info");
 
     chatBox.appendChild(chatMessageClone);
 }
@@ -124,8 +122,8 @@ const redirectSubscriptionCallback = (redirectMessageAsJSON) => {
 }
 
 /* chat users */
-const updateChatUsersList = (chatUsersList) => {
-    chatUsersListElement.innerHTML = "";
+const updateChatUsersListColumn = (chatUsersList) => {
+    chatUsersListColumnElement.innerHTML = "";
 
     let chatUserClone;
     let chatUserElement;
@@ -134,15 +132,20 @@ const updateChatUsersList = (chatUsersList) => {
         chatUserClone = chatUserTemplate.content.cloneNode(true);
         chatUserElement = chatUserClone.querySelector(".chat-user");
         chatUserElement.textContent = chatUserEntry.username;
+        chatUserElement.classList.add('text-center');
         chatUserElement.classList.add((chatUserEntry.username === "OP") ? "text-warning" : "text-info");
-        chatUsersListElement.appendChild(chatUserClone);
+        chatUsersListColumnElement.appendChild(chatUserClone);
     });
 
     nbActiveUsersElement.textContent = chatUsersList.length;
 }
 
+const updateChatUsersLists = (chatUsersList) => {
+    updateChatUsersListColumn(chatUsersList);
+}
+
 const chatUsersSubscriptionCallback = (chatUsersListAsJSON) => {
-    updateChatUsersList(JSON.parse(chatUsersListAsJSON.body));
+    updateChatUsersLists(JSON.parse(chatUsersListAsJSON.body));
 }
 
 /* WebSocket connection */

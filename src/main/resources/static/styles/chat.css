@@ -3,11 +3,13 @@
 }
 
 #top-row #chat-title {
-    white-space: pre-wrap;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #top-row #copy-chat-url-btn {
-    width: 120px;
+    flex-shrink: 0;
 }
 
 #top-row #nb-chat-users-box,
@@ -21,7 +23,7 @@
 }
 
 #middle-row #chat-box .chat-message-box {
-    max-width: 60%;
+    max-width: 75%;
     border: 1px solid var(--color-border-default);
 }
 
@@ -30,7 +32,11 @@
 }
 
 #middle-row #chat-box .chat-message-box.align-self-end {
-    background-color: var(--color-background-chat-card-default);
+    background-color: var(--color-background-chat-card-own);
+}
+
+#middle-row #chat-box .chat-message-box:last-child {
+    margin-bottom: 0 !important;
 }
 
 #middle-row #chat-box .chat-message-box .chat-message {
@@ -39,7 +45,12 @@
 }
 
 #middle-row #chat-box .chat-message-box .chat-message-time {
-    font-size: 13px;
+    font-size: 12px;
+    color: var(---color-text-message-time-default);
+}
+
+#middle-row #chat-box .chat-message-box.align-self-end .chat-message-time {
+    color: var(---color-text-message-time-own);
 }
 
 #bottom-row #message-input-box,
@@ -53,4 +64,14 @@
     max-height: 8em;
     background-color: var(--color-background-chat-message-input);
     border: 1px solid var(--color-border-default);
+}
+
+/*
+    Responsive Breakpoints
+*/
+
+@media (min-width: 640px) {
+    #middle-row #chat-box .chat-message-box {
+        max-width: 60%;
+    }
 }

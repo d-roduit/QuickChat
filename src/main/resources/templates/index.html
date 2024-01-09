@@ -6,8 +6,14 @@
     <link rel="stylesheet" th:href="@{/styles/index.css}">
 </head>
 <body th:replace="layout :: body(content = ~{::main}, scripts = ~{::script})">
-    <main class="container mb-5">
-        <button type="button" class="btn btn-success my-5" data-bs-toggle="modal" data-bs-target="#newChatModal">
+    <main class="container mb-5 px-3 px-sm-0">
+        <p id="no-chat-card-text" class="d-none text-grey mt-5 mb-0">
+            Hmmm 🤔, looks like no one has created a chat yet...
+            <br><br>
+            Will you be the first? 😏
+        </p>
+
+        <button type="button" class="btn btn-success mt-5" data-bs-toggle="modal" data-bs-target="#newChatModal">
             <i class="fas fa-plus" style="font-size: 13px; margin-right: 5px;"></i> New chat
         </button>
 
@@ -37,13 +43,7 @@
             </div>
         </div>
 
-        <p id="no-chat-card-text" class="d-none text-grey">
-            Hmmm 🤔, looks like no one has created a chat yet...
-            <br><br>
-            Will you be the first? 😏
-        </p>
-
-        <div id="chat-cards-container"></div>
+        <div id="chat-cards-container" class="mt-5"></div>
 
         <template id="chat-card-template">
             <div class="chat-card card text-light text-center mb-4">
@@ -54,7 +54,7 @@
                         <span class="nb-chat-users"></span> online
                     </p>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer p-2">
                     <a class="card-chat-url btn btn-outline-secondary btn-subtile d-block">Join</a>
                 </div>
             </div>

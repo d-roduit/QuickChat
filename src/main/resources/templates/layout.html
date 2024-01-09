@@ -7,7 +7,7 @@
     <title th:replace="${title}">Layout Title</title>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- Default styles -->
     <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.4/css/fontawesome.min.css}">
@@ -23,9 +23,9 @@
 </head>
 <body th:fragment="body(content, scripts)">
     <header>
-        <nav class="navbar navbar-expand-lg d-flex justify-content-between px-5 border-gradient-purple border-gradient">
+        <nav class="navbar navbar-expand-lg d-flex justify-content-between py-2 px-3 px-md-5 border-gradient-purple border-gradient">
             <div>
-                <a id="site-name" class="navbar-brand d-inline-block text-light" th:href="@{/}">QuickChat</a>
+                <a id="site-name" class="navbar-brand d-inline-block text-light py-0" th:href="@{/}">QuickChat</a>
             </div>
             <div sec:authorize="hasAuthority('ADMIN')">
                 <p class="text-grey mb-0 d-inline-block mx-3">Logged in as : [[${#httpServletRequest.remoteUser}]]</p>

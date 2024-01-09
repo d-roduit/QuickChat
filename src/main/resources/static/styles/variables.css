@@ -10,6 +10,9 @@
     --color-border-btn-hover: #8b949e;
     --color-border-default: #30363d;
     --color-background-chat-card-default: #161b22;
+    --color-background-chat-card-own: #153048;
     --color-text-grey : #c9d1d9;
     --color-background-chat-message-input: #21262d;
+    ---color-text-message-time-default: #999999;
+    ---color-text-message-time-own: #b9b9b9;
 }

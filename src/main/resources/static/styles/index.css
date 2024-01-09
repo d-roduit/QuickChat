@@ -2,9 +2,12 @@
     background-color: var(--color-background-chat-card-default);
 }
 
-#newChatModal .modal-header,
-#newChatModal .modal-footer {
+#newChatModal .modal-header {
     border-bottom: 1px solid var(--color-border-default);
+}
+
+#newChatModal .modal-footer {
+    border-top: 1px solid var(--color-border-default);
 }
 
 #newChatModal #chat-name {
@@ -14,8 +17,8 @@
 
 #chat-cards-container {
     display: grid;
-    grid-template-columns: repeat(3, 30%);
-    grid-gap: 1rem;
+    grid-template-columns: repeat(1, 100%);
+    grid-gap: .5rem;
     justify-content: space-between;
 }
 
@@ -33,4 +36,32 @@
     border-image-slice: 1;
     border-top: 1px solid;
     border-image-source: linear-gradient(45deg, var(--colors-gradient));
+}
+
+/*
+    Responsive Breakpoints
+*/
+
+@media (min-width: 640px) {
+    #chat-cards-container {
+        grid-template-columns: repeat(2, 47%);
+    }
+}
+
+@media (min-width: 768px) {
+    #chat-cards-container {
+        grid-template-columns: repeat(3, 31%);
+    }
+}
+
+@media (min-width: 1024px) {
+    #chat-cards-container {
+        grid-template-columns: repeat(4, 23%);
+    }
+}
+
+@media (min-width: 1536px) {
+    #chat-cards-container {
+        grid-template-columns: repeat(5, 18%);
+    }
 }
