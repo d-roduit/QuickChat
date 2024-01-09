@@ -188,7 +188,7 @@ const websocketConnectionCallback = (frame) => {
 
 const connectToWebsocket = () => {
     const socket = new SockJS(websocketEndpoints.registration);
-    stompClient = webstomp.over(socket);
+    stompClient = webstomp.over(socket, { debug: false });
     stompClient.connect(
         {},
         (frame) => websocketConnectionCallback(frame)
