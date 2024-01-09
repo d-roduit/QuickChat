@@ -75,6 +75,7 @@ const sendMessageOnClick = (event) => {
     event.preventDefault();
     sendMessage();
     eraseTextArea();
+    messageTextarea.focus();
 }
 
 const sendMessageOnEnter = (event) => {
